@@ -6,12 +6,12 @@
 Якщо запускати через helm, опціонально можна змінювати значення змінної в файлі values
 
 DockerCompose
-- make up   # Піднімие через docker compose додаток
-- make down # Видалить через docker compose додаток
-- make logs # Через контейнер покаже логи
-- make test # Використає метод curl 
+- make up     # Піднімие через docker compose додаток
+- make down   # Видалить через docker compose додаток
+- make logs   # Через контейнер покаже логи
+- make test   # Використає метод curl 
 
 Helm (k8s)
-- make helm-install # Піднімие через helm compose додаток
-- make helm-upgrade # Оновить helm (для внесення змін)
-- make helm-uninstall # Видалить додаток
+- make helm-install    # Піднімие через helm compose додаток
+- make helm-upgrade    # Оновить helm (для внесення змін)
+- make helm-uninstall  # Видалить додаток
