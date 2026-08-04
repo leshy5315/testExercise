@@ -1,0 +1,26 @@
+{{- if .Values.selfSigned.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "test-app.fullname" . }}-tls
+  labels:
+    {{- include "test-app.labels" . | nindent 4 }}
+spec:
+  secretName: {{ .Values.selfSigned.secretName }}
+  duration: {{ .Values.selfSigned.duration }}
+  renewBefore: {{ .Values.selfSigned.renewBefore }}
+  subject:
+    organizations:
+      - {{ .Values.selfSigned.organization | quote }}
+  privateKey:
+    algorithm: RSA
+    size: {{ .Values.selfSigned.privateKeySize }}
+  dnsNames:
+    {{- range .Values.selfSigned.dnsNames }}
+    - {{ . | quote }}
+    {{- end }}
+  issuerRef:
+    name: {{ include "test-app.fullname" . }}-selfsigned
+    kind: Issuer
+    group: cert-manager.io
+{{- end }}

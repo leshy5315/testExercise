@@ -1,0 +1,12 @@
+apiVersion: v2
+name: test-app
+description: Helm chart for the Flask test webapp
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - flask
+  - webapp
+maintainers:
+  - name: leshy5315
+    email: leshy5315@gmail.com

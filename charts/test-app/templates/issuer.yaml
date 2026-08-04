@@ -1,0 +1,10 @@
+{{- if .Values.selfSigned.enabled }}
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "test-app.fullname" . }}-selfsigned
+  labels:
+    {{- include "test-app.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+{{- end }}
