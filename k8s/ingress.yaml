@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - test.keruserver-prometheus.site
+        - localhost
       secretName: test-app-tls
   rules:
-    - host: test.keruserver-prometheus.site
+    - host: localhost
       http:
         paths:
           - path: /

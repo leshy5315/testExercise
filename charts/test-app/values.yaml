@@ -33,14 +33,14 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: test.keruserver-prometheus.site
+    - host: localhost
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: test-app-tls
       hosts:
-        - test.keruserver-prometheus.site
+        - localhost
 
 resources:
   requests:
@@ -75,7 +75,7 @@ tolerations: []
 affinity: {}
 
 env:
-  ENV_NAME: production
+  ENV_NAME: Hello_World
 
 # Self-signed TLS via cert-manager Issuer + Certificate
 selfSigned:
@@ -86,4 +86,4 @@ selfSigned:
   renewBefore: 720h # 30 days
   privateKeySize: 2048
   dnsNames:
-    - test.keruserver-prometheus.site
+    - localhost

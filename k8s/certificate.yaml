@@ -22,7 +22,7 @@ spec:
     algorithm: RSA
     size: 2048
   dnsNames:
-    - test.keruserver-prometheus.site
+    - localhost
   issuerRef:
     name: selfsigned-issuer
     kind: Issuer
