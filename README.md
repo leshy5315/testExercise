@@ -45,3 +45,9 @@ Check the deployment:
 ```bash
 curl https://<your-domain>/healthz       # add -k for selfsigned
 ```
+
+## CI/CD
+
+[GitHub Actions](.github/workflows/deploy.yml) builds the image on every push and pull request. Pushes also publish it to Docker Hub as `leshy5315/test_webapp:<commit-sha>`. Pushes to `main` additionally tag it `latest` and deploy it with `helm upgrade` over SSH.
+
+The workflow needs these repository secrets: `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN` (Read & Write), `SSH_HOST` and `SSH_PRIVATE_KEY`.
