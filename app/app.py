@@ -39,6 +39,7 @@ INDEX_HTML = """<!doctype html>
       <tr><td>Server time (UTC)</td><td>{time}</td></tr>
     </table>
     <a href="/healthz">/healthz</a> &mdash; JSON health check
+    <p style="color:#616e7c;font-size:13px">Deployed by GitHub Actions</p>
   </div>
 </body>
 </html>
