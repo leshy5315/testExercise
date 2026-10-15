@@ -1,4 +1,4 @@
-{{- if .Values.selfSigned.enabled }}
+{{- if .Values.certificate.enabled }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -6,21 +6,23 @@ metadata:
   labels:
     {{- include "test-app.labels" . | nindent 4 }}
 spec:
-  secretName: {{ .Values.selfSigned.secretName }}
-  duration: {{ .Values.selfSigned.duration }}
-  renewBefore: {{ .Values.selfSigned.renewBefore }}
+  secretName: {{ .Values.certificate.secretName }}
+  {{- if eq .Values.certificate.issuer "selfsigned" }}
+  duration: {{ .Values.certificate.duration }}
+  renewBefore: {{ .Values.certificate.renewBefore }}
   subject:
     organizations:
-      - {{ .Values.selfSigned.organization | quote }}
+      - {{ .Values.certificate.organization | quote }}
+  {{- end }}
   privateKey:
     algorithm: RSA
-    size: {{ .Values.selfSigned.privateKeySize }}
+    size: {{ .Values.certificate.privateKeySize }}
   dnsNames:
-    {{- range .Values.selfSigned.dnsNames }}
+    {{- range .Values.certificate.dnsNames }}
     - {{ . | quote }}
     {{- end }}
   issuerRef:
-    name: {{ include "test-app.fullname" . }}-selfsigned
+    name: {{ include "test-app.fullname" . }}-{{ .Values.certificate.issuer }}
     kind: Issuer
     group: cert-manager.io
 {{- end }}

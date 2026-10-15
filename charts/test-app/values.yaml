@@ -30,17 +30,16 @@ service:
 ingress:
   enabled: true
   className: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations: {}
   hosts:
-    - host: localhost
+    - host: 201.79.12.220.sslip.io
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: test-app-tls
       hosts:
-        - localhost
+        - 201.79.12.220.sslip.io
 
 resources:
   requests:
@@ -77,13 +76,22 @@ affinity: {}
 env:
   ENV_NAME: Hello_World
 
-# Self-signed TLS via cert-manager Issuer + Certificate
-selfSigned:
+# TLS via cert-manager Issuer + Certificate
+#   issuer: selfsigned  - works anywhere (incl. localhost), browser shows a warning
+#   issuer: letsencrypt - trusted by browsers; needs a public DNS name and port 80 open
+certificate:
   enabled: true
+  issuer: letsencrypt
   secretName: test-app-tls
+  privateKeySize: 2048
+  dnsNames:
+    - 201.79.12.220.sslip.io
+  # selfsigned only (Let's Encrypt always issues 90-day certs)
   organization: test-app
   duration: 8760h   # 1 year
   renewBefore: 720h # 30 days
-  privateKeySize: 2048
-  dnsNames:
-    - localhost
+
+letsencrypt:
+  email: leshy5315@gmail.com
+  # staging: https://acme-staging-v02.api.letsencrypt.org/directory (untrusted, high rate limits)
+  server: https://acme-v02.api.letsencrypt.org/directory
