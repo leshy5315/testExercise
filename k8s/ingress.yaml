@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - localhost
+        - 201.79.12.220.sslip.io
       secretName: test-app-tls
   rules:
-    - host: localhost
+    - host: 201.79.12.220.sslip.io
       http:
         paths:
           - path: /

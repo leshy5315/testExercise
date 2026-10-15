@@ -1,10 +1,24 @@
-{{- if .Values.selfSigned.enabled }}
+{{- if .Values.certificate.enabled }}
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: {{ include "test-app.fullname" . }}-selfsigned
+  name: {{ include "test-app.fullname" . }}-{{ .Values.certificate.issuer }}
   labels:
     {{- include "test-app.labels" . | nindent 4 }}
 spec:
+  {{- if eq .Values.certificate.issuer "letsencrypt" }}
+  acme:
+    server: {{ .Values.letsencrypt.server }}
+    email: {{ required "letsencrypt.email is required" .Values.letsencrypt.email | quote }}
+    privateKeySecretRef:
+      name: {{ include "test-app.fullname" . }}-letsencrypt-account
+    solvers:
+      - http01:
+          ingress:
+            ingressClassName: {{ .Values.ingress.className }}
+  {{- else if eq .Values.certificate.issuer "selfsigned" }}
   selfSigned: {}
+  {{- else }}
+  {{- fail "certificate.issuer must be selfsigned or letsencrypt" }}
+  {{- end }}
 {{- end }}

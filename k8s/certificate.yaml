@@ -22,7 +22,7 @@ spec:
     algorithm: RSA
     size: 2048
   dnsNames:
-    - localhost
+    - 201.79.12.220.sslip.io
   issuerRef:
     name: selfsigned-issuer
     kind: Issuer
