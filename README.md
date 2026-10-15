@@ -1,5 +1,7 @@
 # testExercise
 
+#ip_project https://201.79.12.220.sslip.io/
+
 A small Flask web app that can be run locally with Docker Compose or deployed to Kubernetes with Helm.
 
 - `/` is an HTML status page that shows the environment and which pod served the request.
